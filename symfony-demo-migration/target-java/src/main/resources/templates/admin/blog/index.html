@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--/*
+    Admin post list — Thymeleaf port of `admin/blog/index.html.twig`. Rendered by
+    AdminBlogController.index (task 11.1). Model: `posts` = List<Post> (the current admin's own
+    posts, newest first). Reproduces the PHP table (Title / Published at / Actions[Show, Edit]),
+    the "No posts found." empty state, and the sidebar "Create post" action button.
+
+    The PHP sidebar rendered the create-post action above the shared sidebar; the shared `layout`
+    fragment here owns the sidebar, so the "Create post" button is placed at the top of `main`
+    (a documented layout deviation; see BEHAVIOR_CHANGES.md). i18n strings are plain English
+    literals for now (MessageSource wiring is task 12.1). Date parity via SpEL DateTimeFormatter.
+*/-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: page('Post List', 'admin_post_index', ~{::main})}">
+<body>
+<main th:fragment="main">
+    <p class="mb-3">
+        <a th:href="@{/admin/post/new}" class="btn btn-success">Create post</a>
+    </p>
+
+    <h1>Post List</h1>
+
+    <table class="table table-striped table-middle-aligned table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Published at</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.title}">Post title</td>
+                <td th:text="${T(java.time.format.DateTimeFormatter).ofPattern('MMM d, yyyy, h:mm a', T(java.util.Locale).ENGLISH).format(post.publishedAt)}">Jan 1, 2024, 12:00 PM</td>
+                <td class="text-center">
+                    <div class="item-actions">
+                        <a th:href="@{/admin/post/{id}(id=${post.id})}" class="btn btn-sm btn-secondary">Show</a>
+                        <a th:href="@{/admin/post/{id}/edit(id=${post.id})}" class="btn btn-sm btn-primary">Edit</a>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(posts)}">
+                <td colspan="3" align="center">No posts found.</td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

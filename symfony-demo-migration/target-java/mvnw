@@ -1,0 +1,42 @@
+#!/bin/sh
+# Maven Wrapper script
+# Adapted from https://github.com/apache/maven-wrapper
+
+set -e
+
+# Determine the project base directory
+if [ -z "$MAVEN_PROJECTBASEDIR" ]; then
+  MAVEN_PROJECTBASEDIR=$(cd "$(dirname "$0")" && pwd)
+  export MAVEN_PROJECTBASEDIR
+fi
+
+WRAPPER_PROPERTIES="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.properties"
+WRAPPER_JAR="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar"
+MAVEN_HOME="$HOME/.m2/wrapper/dists"
+
+# Read distribution URL from properties
+if [ -f "$WRAPPER_PROPERTIES" ]; then
+  distributionUrl=$(grep "distributionUrl" "$WRAPPER_PROPERTIES" | cut -d'=' -f2- | tr -d '\r')
+fi
+
+if [ -z "$distributionUrl" ]; then
+  echo "Error: Could not find distributionUrl in $WRAPPER_PROPERTIES"
+  exit 1
+fi
+
+# Determine Maven version from URL
+MAVEN_VERSION=$(echo "$distributionUrl" | sed 's/.*apache-maven-\([0-9.]*\).*/\1/')
+MAVEN_DIST_DIR="$MAVEN_HOME/apache-maven-$MAVEN_VERSION"
+
+# Download and extract Maven if not present
+if [ ! -d "$MAVEN_DIST_DIR" ]; then
+  echo "Downloading Maven $MAVEN_VERSION..."
+  mkdir -p "$MAVEN_HOME"
+  TEMP_FILE=$(mktemp)
+  curl -sL "$distributionUrl" -o "$TEMP_FILE"
+  unzip -q "$TEMP_FILE" -d "$MAVEN_HOME"
+  rm -f "$TEMP_FILE"
+fi
+
+# Execute Maven
+exec "$MAVEN_DIST_DIR/bin/mvn" "$@"

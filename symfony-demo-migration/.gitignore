@@ -1,0 +1,47 @@
+# ---- OS / editor noise ----
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+
+# ---- PHP source (source-php/ = Symfony Demo) ----
+source-php/vendor/
+source-php/var/
+source-php/.env.local
+source-php/.env.*.local
+source-php/public/build/
+source-php/node_modules/
+source-php/composer.phar
+# SQLite demo database + dumps
+source-php/**/*.sqlite
+source-php/**/*.sqlite3
+source-php/**/*.db
+
+# ---- Java / Maven target (target-java/ = generated Spring Boot app) ----
+target-java/target/
+target-java/build/
+target-java/.mvn/wrapper/maven-wrapper.jar
+target-java/**/*.class
+target-java/**/*.jar
+target-java/**/*.war
+target-java/**/*.log
+# keep the Maven wrapper scripts if present
+!target-java/mvnw
+!target-java/mvnw.cmd
+
+# ---- Migration runtime artifacts ----
+# uploaded/hackable dirs and local parity run output
+target-java/hackable/uploads/*
+!target-java/hackable/uploads/.gitkeep
+PARITY_HARNESS/**/output/
+parity-report.*.md
+
+# ---- Secrets (never commit) ----
+*.pem
+*.key
+.env
+.env.local

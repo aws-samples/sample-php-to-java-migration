@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--/*
+    Comment form error — Thymeleaf port of `blog/comment_form_error.html.twig`. Rendered when a
+    comment submission fails validation (task 9.1). Model: `post` (Post) and `comment` (the bound
+    CommentDto, carrying binding/validation errors under the `comment` object name). Mirrors the
+    PHP `commentNew()` failure path, which re-rendered the comment form with its validation errors
+    instead of redirecting. Kept minimal: it shows the post title, the field errors, and the
+    comment form re-posting to the same `comment_new` endpoint.
+*/-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: page(${post.title}, 'blog_comment_form_error', ~{::main})}">
+<body>
+<main th:fragment="main">
+    <h1 th:text="${post.title}">Post title</h1>
+
+    <div id="post-add-comment" class="well">
+        <form th:action="@{/blog/comment/{slug}/new(slug=${post.slug})}"
+              method="post" th:object="${comment}">
+            <fieldset>
+                <legend>Add a comment</legend>
+
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <ul class="mb-0">
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Error message</li>
+                    </ul>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="comment_content" class="sr-only">Content</label>
+                    <textarea id="comment_content" name="content" th:field="*{content}"
+                              class="form-control" rows="10"></textarea>
+                </div>
+                <input type="hidden"
+                       th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+                <div class="form-group">
+                    <button class="btn btn-primary float-right" type="submit">Publish comment</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</main>
+</body>
+</html>

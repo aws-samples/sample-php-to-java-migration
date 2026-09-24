@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--/*
+    Admin new-post form — Thymeleaf port of `admin/blog/new.html.twig` (+ its `_form` partial,
+    inlined). Rendered by AdminBlogController.newForm / re-rendered by create on validation failure
+    (task 11.1). Model: `post` = a PostDto bound as the form object (carrying binding/validation
+    errors under the `post` object name). The form POSTs to `/admin/post/new`.
+
+    Parity notes:
+      - Fields: title, summary, content, publishedAt, tags (comma-separated — mirrors the PHP
+        TagsInputType, which renders a single text input split on commas).
+      - Two submit buttons: "Create post" (normal save) and "Save and create new" (name
+        `saveAndCreateNew`, which the controller inspects to redirect back to /admin/post/new).
+      - "Back to list" link → /admin/post/.
+    Spring Security CSRF token is emitted via the standard `_csrf` hidden input. i18n strings are
+    plain English literals for now (MessageSource wiring is task 12.1).
+*/-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: page('Create Post', 'admin_post_new', ~{::main})}">
+<body>
+<main th:fragment="main">
+    <h1>Create Post</h1>
+
+    <form th:action="@{/admin/post/new}" method="post" th:object="${post}">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <ul class="mb-0">
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Error message</li>
+            </ul>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="post_title">Title</label>
+            <input type="text" id="post_title" th:field="*{title}" class="form-control">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="post_summary">Summary</label>
+            <textarea id="post_summary" th:field="*{summary}" class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="post_content">Content</label>
+            <textarea id="post_content" th:field="*{content}" class="form-control" rows="10"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="post_publishedAt">Published at</label>
+            <input type="text" id="post_publishedAt" th:field="*{publishedAt}" class="form-control"
+                   placeholder="yyyy-MM-ddTHH:mm:ss">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="post_tags">Tags</label>
+            <input type="text" id="post_tags" th:field="*{tags}" class="form-control"
+                   placeholder="Comma-separated tags">
+        </div>
+
+        <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create post</button>
+            <button type="submit" name="saveAndCreateNew" value="1" class="btn btn-primary">Save and create new</button>
+            <a th:href="@{/admin/post/}" class="btn btn-link">Back to list</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--/*
+    Post detail — Thymeleaf port of `blog/post_show.html.twig`. Model: `post` (Post) and
+    `contentHtml` (pre-rendered Markdown HTML, rendered with th:utext). Renders the title,
+    metadata, tags, body, and comments (newest first, ordered by the entity mapping).
+
+    The comment submission form is task 9.1 — a "Log in to comment" placeholder is shown for
+    anonymous users; the POST is intentionally NOT wired here.
+*/-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: page(${post.title}, 'blog_post_show', ~{::main})}">
+<body>
+<main th:fragment="main">
+    <h1 th:text="${post.title}">Post title</h1>
+
+    <p class="post-metadata">
+        <span class="metadata"
+              th:text="${T(java.time.format.DateTimeFormatter).ofPattern('MMMM d, yyyy', T(java.util.Locale).ENGLISH).format(post.publishedAt)}">January 1, 2024</span>
+        <span class="metadata" th:text="${post.author.fullName}">Author Name</span>
+    </p>
+
+    <div class="post-content" th:utext="${contentHtml}">
+        <p>Rendered Markdown content goes here.</p>
+    </div>
+
+    <p class="post-tags" th:if="${!post.tags.isEmpty()}">
+        <a th:each="tag : ${post.tags}"
+           class="badge bg-secondary text-decoration-none"
+           th:href="@{/blog/(tag=${tag.name})}"
+           th:text="${tag.name}">tag</a>
+    </p>
+
+    <div id="post-add-comment" class="well">
+        <!--/*
+            Authenticated users get the add-comment form; it POSTs to the task 9.1 endpoint
+            (comment_new: /blog/comment/{slug}/new) which may not exist yet — the form only needs
+            to render here. CSRF token is emitted via Spring Security's _csrf model attribute.
+        */-->
+        <form sec:authorize="isAuthenticated()"
+              th:action="@{/blog/comment/{slug}/new(slug=${post.slug})}" method="post">
+            <fieldset>
+                <legend>Add a comment</legend>
+                <div class="form-group mb-3">
+                    <label for="comment_content" class="sr-only">Content</label>
+                    <textarea id="comment_content" name="content" class="form-control" rows="10"></textarea>
+                </div>
+                <input type="hidden"
+                       th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+                <div class="form-group">
+                    <button class="btn btn-primary float-right" type="submit">Publish comment</button>
+                </div>
+            </fieldset>
+        </form>
+        <p sec:authorize="!isAuthenticated()">
+            <a class="btn btn-success" th:href="@{/login}">Sign in to comment</a>
+            to post a comment.
+        </p>
+    </div>
+
+    <h3 th:text="|Comments (${post.comments.size()})|">Comments (0)</h3>
+
+    <div th:if="${post.comments.isEmpty()}" class="post-comment">
+        <p>Be the first to comment on this post.</p>
+    </div>
+
+    <div class="row post-comment" th:each="comment : ${post.comments}">
+        <h4 class="col-sm-3">
+            <strong th:text="${comment.author.fullName}">Author</strong> commented on
+            <strong th:text="${T(java.time.format.DateTimeFormatter).ofPattern('MMM d, yyyy h:mm a', T(java.util.Locale).ENGLISH).format(comment.publishedAt)}">date</strong>
+        </h4>
+        <div class="col-sm-9">
+            <p th:text="${comment.content}">Comment content.</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

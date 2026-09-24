@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--/*
+    Blog index — Thymeleaf port of `blog/index.html.twig` (+ its `_post.html.twig` /
+    `_post_tags.html.twig` partials, inlined). Model: `paginator` (Paginator<Post>) and
+    `tagName` (String or null). Lists posts and renders pagination controls linking to
+    /blog/page/{n}. Date parity via SpEL DateTimeFormatter (no extra dialect required).
+*/-->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Symfony Demo application', 'blog_index', ~{::main})}">
+<body>
+<main th:fragment="main">
+    <div th:if="${tagName != null}" class="bg-body-tertiary mb-3 p-3 rounded">
+        Showing posts tagged with <strong th:text="${tagName}">tag</strong>
+    </div>
+
+    <div th:if="${#lists.isEmpty(paginator.results)}" class="bg-body-tertiary mb-3 p-3 rounded">
+        No posts found.
+    </div>
+
+    <article class="post" th:each="post : ${paginator.results}">
+        <h2>
+            <a th:href="@{/blog/posts/{slug}(slug=${post.slug})}" th:text="${post.title}">Post title</a>
+        </h2>
+
+        <p class="post-metadata">
+            <span class="metadata"
+                  th:text="${T(java.time.format.DateTimeFormatter).ofPattern('MMMM d, yyyy', T(java.util.Locale).ENGLISH).format(post.publishedAt)}">January 1, 2024</span>
+            <span class="metadata" th:text="${post.author.fullName}">Author Name</span>
+        </p>
+
+        <p th:text="${post.summary}">Post summary.</p>
+
+        <p class="post-tags" th:if="${!post.tags.isEmpty()}">
+            <a th:each="tag : ${post.tags}"
+               class="badge bg-secondary text-decoration-none"
+               th:href="@{/blog/(tag=${tag.name})}"
+               th:text="${tag.name}">tag</a>
+        </p>
+    </article>
+
+    <div class="navigation text-center" th:if="${paginator.hasToPaginate()}">
+        <ul class="pagination pagination-lg">
+            <li class="page-item" th:classappend="${!paginator.hasPreviousPage()} ? 'disabled'">
+                <a class="page-link" rel="previous"
+                   th:if="${paginator.hasPreviousPage()}"
+                   th:href="@{/blog/page/{page}(page=${paginator.previousPage}, tag=${tagName})}">&laquo; Previous</a>
+                <span class="page-link" th:unless="${paginator.hasPreviousPage()}">&laquo; Previous</span>
+            </li>
+
+            <li class="page-item"
+                th:each="i : ${#numbers.sequence(1, paginator.lastPage)}"
+                th:classappend="${i == paginator.currentPage} ? 'active'">
+                <span class="page-link" th:if="${i == paginator.currentPage}" th:text="${i}">1</span>
+                <a class="page-link" th:unless="${i == paginator.currentPage}"
+                   th:href="@{/blog/page/{page}(page=${i}, tag=${tagName})}" th:text="${i}">1</a>
+            </li>
+
+            <li class="page-item" th:classappend="${!paginator.hasNextPage()} ? 'disabled'">
+                <a class="page-link"
+                   th:if="${paginator.hasNextPage()}"
+                   th:href="@{/blog/page/{page}(page=${paginator.nextPage}, tag=${tagName})}">Next &raquo;</a>
+                <span class="page-link" th:unless="${paginator.hasNextPage()}">Next &raquo;</span>
+            </li>
+        </ul>
+    </div>
+</main>
+</body>
+</html>

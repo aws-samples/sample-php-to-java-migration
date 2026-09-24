@@ -1,0 +1,35 @@
+# --- Excluded: separate / third-party git repos (not part of this sample's own work) ---
+# Reference-only repos — never re-published here
+reference-repos/
+# Separate AI-DLC workflows repo (its own git remote)
+aidlc-workflows/
+# Unrelated exploratory project — not part of this sample
+ideation-portal/
+# Upstream open-source PHP sources are NOT committed here — this is third-party code we migrated
+# FROM, not code we wrote, and it triggers SAST findings (e.g. Semgrep insecure-innerhtml) that
+# are not actionable against this repo. See README.md "Source Applications" table for each app's
+# URL + exact pinned commit SHA + clone instructions so any reviewer can fetch the exact baseline
+# used for parity if they need to compare against it.
+#   symfony-demo-migration/source-php  -> https://github.com/symfony/demo
+#   sylius-doctrine-sample/source-php  -> https://github.com/Sylius/Sylius
+#   laravel-eloquent-sample/source-php -> https://github.com/BookStackApp/BookStack
+**/source-php/
+# Same for upstream clones under Transform/apps (Sylius, Symfony Demo) — Transform/ is a separate
+# exploratory spec area, not part of the two completed migrations
+Transform/apps/
+
+# --- Build artifacts & runtime state ---
+**/target/
+*.class
+*.jar
+!**/mvnw*.jar
+!**/.mvn/wrapper/*.jar
+**/data/*.sqlite
+*.log
+build.log
+
+# --- OS / IDE noise ---
+.DS_Store
+.vscode/
+*.iml
+.idea/

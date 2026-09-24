@@ -1,0 +1,321 @@
+{
+    "app": "symfony-demo",
+    "root": "apps/symfony-demo",
+    "generatedBy": "discover-models.php",
+    "summary": {
+        "filesScanned": 39,
+        "classesDiscovered": 34,
+        "eloquentModelsFound": 0,
+        "doctrineEntitiesFound": 4,
+        "doctrineXmlEntitiesFound": 0,
+        "flaggedForReview": 3
+    },
+    "models": [
+        {
+            "class": "App\\Entity\\Post",
+            "framework": "doctrine",
+            "file": "apps/symfony-demo/src/Entity/Post.php",
+            "table": "symfony_demo_post",
+            "id": {
+                "field": "id",
+                "phpType": "?int",
+                "generationStrategy": "AUTO"
+            },
+            "columns": [
+                {
+                    "field": "id",
+                    "columnName": null,
+                    "phpType": "?int",
+                    "doctrineType": "INTEGER",
+                    "javaType": "Long",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "title",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "slug",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "summary",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "content",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "TEXT",
+                    "javaType": "FLAG:String \u2014 mark the JPA field @Lob",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "publishedAt",
+                    "columnName": null,
+                    "phpType": "\\DateTimeImmutable",
+                    "doctrineType": null,
+                    "javaType": "LocalDateTime",
+                    "nullable": false,
+                    "unique": false
+                }
+            ],
+            "relationships": [
+                {
+                    "field": "author",
+                    "type": "ManyToOne",
+                    "target": "User",
+                    "mappedBy": null,
+                    "inversedBy": null,
+                    "joinColumn": {
+                        "name": null,
+                        "nullable": false
+                    },
+                    "joinTable": null,
+                    "orderBy": null,
+                    "cascade": [],
+                    "orphanRemoval": false,
+                    "line": 63
+                },
+                {
+                    "field": "comments",
+                    "type": "OneToMany",
+                    "target": "Comment",
+                    "mappedBy": "post",
+                    "inversedBy": null,
+                    "joinColumn": null,
+                    "joinTable": null,
+                    "orderBy": {
+                        "publishedAt": "DESC"
+                    },
+                    "cascade": [
+                        "persist"
+                    ],
+                    "orphanRemoval": true,
+                    "line": 70
+                },
+                {
+                    "field": "tags",
+                    "type": "ManyToMany",
+                    "target": "Tag",
+                    "mappedBy": null,
+                    "inversedBy": null,
+                    "joinColumn": null,
+                    "joinTable": {
+                        "name": "symfony_demo_post_tag"
+                    },
+                    "orderBy": {
+                        "name": "ASC"
+                    },
+                    "cascade": [
+                        "persist"
+                    ],
+                    "orphanRemoval": false,
+                    "line": 79
+                }
+            ],
+            "flags": [
+                "content: String \u2014 mark the JPA field @Lob (line 56)"
+            ]
+        },
+        {
+            "class": "App\\Entity\\Tag",
+            "framework": "doctrine",
+            "file": "apps/symfony-demo/src/Entity/Tag.php",
+            "table": "symfony_demo_tag",
+            "id": {
+                "field": "id",
+                "phpType": "?int",
+                "generationStrategy": "AUTO"
+            },
+            "columns": [
+                {
+                    "field": "id",
+                    "columnName": null,
+                    "phpType": "?int",
+                    "doctrineType": "INTEGER",
+                    "javaType": "Long",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "name",
+                    "columnName": null,
+                    "phpType": "string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": true
+                }
+            ],
+            "relationships": [],
+            "flags": []
+        },
+        {
+            "class": "App\\Entity\\User",
+            "framework": "doctrine",
+            "file": "apps/symfony-demo/src/Entity/User.php",
+            "table": "symfony_demo_user",
+            "id": {
+                "field": "id",
+                "phpType": "finalconstROLE_USER='ROLE_USER';finalconstROLE_ADMIN='ROLE_ADMIN';?int",
+                "generationStrategy": "AUTO"
+            },
+            "columns": [
+                {
+                    "field": "id",
+                    "columnName": null,
+                    "phpType": "finalconstROLE_USER='ROLE_USER';finalconstROLE_ADMIN='ROLE_ADMIN';?int",
+                    "doctrineType": "INTEGER",
+                    "javaType": "Long",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "fullName",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "username",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": true
+                },
+                {
+                    "field": "email",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": true
+                },
+                {
+                    "field": "password",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "STRING",
+                    "javaType": "String",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "roles",
+                    "columnName": null,
+                    "phpType": "array",
+                    "doctrineType": "JSON",
+                    "javaType": "FLAG:Map/List \u2014 shape must be inferred from usage",
+                    "nullable": false,
+                    "unique": false
+                }
+            ],
+            "relationships": [],
+            "flags": [
+                "roles: Map/List \u2014 shape must be inferred from usage (line 64)"
+            ]
+        },
+        {
+            "class": "App\\Entity\\Comment",
+            "framework": "doctrine",
+            "file": "apps/symfony-demo/src/Entity/Comment.php",
+            "table": "symfony_demo_comment",
+            "id": {
+                "field": "id",
+                "phpType": "?int",
+                "generationStrategy": "AUTO"
+            },
+            "columns": [
+                {
+                    "field": "id",
+                    "columnName": null,
+                    "phpType": "?int",
+                    "doctrineType": "INTEGER",
+                    "javaType": "Long",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "content",
+                    "columnName": null,
+                    "phpType": "?string",
+                    "doctrineType": "TEXT",
+                    "javaType": "FLAG:String \u2014 mark the JPA field @Lob",
+                    "nullable": false,
+                    "unique": false
+                },
+                {
+                    "field": "publishedAt",
+                    "columnName": null,
+                    "phpType": "\\DateTimeImmutable",
+                    "doctrineType": null,
+                    "javaType": "LocalDateTime",
+                    "nullable": false,
+                    "unique": false
+                }
+            ],
+            "relationships": [
+                {
+                    "field": "post",
+                    "type": "ManyToOne",
+                    "target": "Post",
+                    "mappedBy": null,
+                    "inversedBy": "comments",
+                    "joinColumn": {
+                        "name": null,
+                        "nullable": false
+                    },
+                    "joinTable": null,
+                    "orderBy": null,
+                    "cascade": [],
+                    "orphanRemoval": false,
+                    "line": 39
+                },
+                {
+                    "field": "author",
+                    "type": "ManyToOne",
+                    "target": "User",
+                    "mappedBy": null,
+                    "inversedBy": null,
+                    "joinColumn": {
+                        "name": null,
+                        "nullable": false
+                    },
+                    "joinTable": null,
+                    "orderBy": null,
+                    "cascade": [],
+                    "orphanRemoval": false,
+                    "line": 51
+                }
+            ],
+            "flags": [
+                "content: String \u2014 mark the JPA field @Lob (line 44)"
+            ]
+        }
+    ],
+    "unresolvedBaseClasses": []
+}

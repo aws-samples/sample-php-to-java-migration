@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--/*
+    Blog search — Thymeleaf port of `blog/search.html.twig` + the `blog_search` component.
+    Model: `query` (String) and `posts` (List<Post>). Renders a GET search form (input name `q`,
+    prefilled with the current query) and the matching posts (title link + summary).
+*/-->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Search', 'blog_search', ~{::main})}">
+<body>
+<main th:fragment="main">
+    <form method="get" th:action="@{/blog/search}">
+        <div class="form-group mb-3">
+            <input type="search"
+                   name="q"
+                   class="form-control search-field"
+                   placeholder="Search for posts..."
+                   autocomplete="off"
+                   th:value="${query}"
+                   autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="mt-4">
+        <article class="post" th:each="post : ${posts}">
+            <h2>
+                <a th:href="@{/blog/posts/{slug}(slug=${post.slug})}" th:text="${post.title}">Post title</a>
+            </h2>
+            <p class="post-metadata">
+                <span class="metadata" th:text="${post.author.fullName}">Author Name</span>
+            </p>
+            <p th:text="${post.summary}">Post summary.</p>
+        </article>
+
+        <div th:if="${#lists.isEmpty(posts) and !#strings.isEmpty(query)}">
+            <p>No results found for <strong th:text="${query}">query</strong>.</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

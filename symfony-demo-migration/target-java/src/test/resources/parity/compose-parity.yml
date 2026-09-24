@@ -1,0 +1,57 @@
+# Side-by-side parity test environment.
+#
+# Brings up BOTH the original PHP Symfony Demo baseline and the migrated Java
+# Spring Boot port so the parity harness can submit identical requests to both
+# targets and diff the responses.
+#
+#   PHP  baseline  -> http://localhost:8000   (service: php-symfony)
+#   Java migration -> http://localhost:8080   (service: java-symfony)
+#
+# Both run on SQLite seeded with the demo fixtures, so no external DB is needed.
+#
+# Usage (Docker required — NOT available in the CI/dev sandbox this was authored in):
+#   docker compose -f compose-parity.yml up --build
+#   docker compose -f compose-parity.yml down -v
+#
+# Base images in both Dockerfiles are literal Amazon ECR Public references
+# (public.ecr.aws/docker/library/...) — anonymously pullable, so no registry
+# auth or env vars are needed to build.
+#
+# The Java app is built from target-java/Dockerfile. The PHP baseline is built
+# from the read-only source-php tree via php-baseline.Dockerfile, so parity is
+# measured against the exact code under migration.
+
+networks:
+  parity:
+
+services:
+  # ----------------------------------------------------------------------------
+  # PHP baseline (original Symfony Demo, SQLite + fixtures)
+  # ----------------------------------------------------------------------------
+  php-symfony:
+    build:
+      # Context is the read-only PHP source of truth; the Dockerfile lives in the
+      # Java project's test resources and is referenced relative to that context.
+      context: ../../../../../source-php
+      dockerfile: ../target-java/src/test/resources/parity/php-baseline.Dockerfile
+    networks:
+      - parity
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+
+  # ----------------------------------------------------------------------------
+  # Java migration (target-java)
+  # ----------------------------------------------------------------------------
+  java-symfony:
+    build:
+      # Walk back up from src/test/resources/parity/ to the target-java root.
+      context: ../../../..
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_PORT=8080
+    networks:
+      - parity
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped

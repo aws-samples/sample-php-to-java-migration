@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--/*
+    RSS 2.0 feed — Thymeleaf (XML mode) port of `blog/index.xml.twig`. Model: `paginator`
+    (Paginator<Post>) and `tagName`. Rendered in XML template mode (see ThymeleafXmlConfig) so
+    RSS elements such as <link> are emitted verbatim rather than treated as HTML void elements.
+    Dates use SpEL DateTimeFormatter in RFC-822 style to match the PHP date('r') filter.
+*/-->
+<rss version="2.0" xmlns:th="http://www.thymeleaf.org">
+    <channel>
+        <title>Symfony Demo Blog Posts</title>
+        <description>Latest posts from the Symfony Demo blog.</description>
+        <link th:text="@{/blog/}">/blog/</link>
+        <language>en</language>
+        <item th:each="post : ${paginator.results}">
+            <title th:text="${post.title}">Post title</title>
+            <description th:text="${post.summary}">Post summary.</description>
+            <link th:text="@{/blog/posts/{slug}(slug=${post.slug})}">/blog/posts/slug</link>
+            <guid th:text="@{/blog/posts/{slug}(slug=${post.slug})}">/blog/posts/slug</guid>
+            <pubDate th:text="${T(java.time.format.DateTimeFormatter).ofPattern('EEE, dd MMM yyyy HH:mm:ss ''GMT''', T(java.util.Locale).ENGLISH).format(post.publishedAt)}">Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+            <author th:text="${post.author.email}">author@example.com</author>
+            <category th:each="tag : ${post.tags}" th:text="${tag.name}">tag</category>
+        </item>
+    </channel>
+</rss>

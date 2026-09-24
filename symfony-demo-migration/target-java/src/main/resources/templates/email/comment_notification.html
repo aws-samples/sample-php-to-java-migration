@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+  Comment notification email body (task 9.2).
+
+  Port of the PHP notification.comment_created.description translation, which the
+  Symfony CommentNotificationSubscriber rendered inline as the email HTML body:
+      "A new comment was posted on the post \"{title}\". You can read it here: {link}"
+
+  Rendered by the Thymeleaf SpringTemplateEngine with two model variables:
+    - title : the commented post's title
+    - link  : the absolute URL to the post, including the #comment_{id} fragment
+
+  i18n via MessageSource is task 12.1; this template uses the plain English literal,
+  consistent with how the public templates (task 8.3) handled translations.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="'A new comment has been posted'">A new comment has been posted</title>
+</head>
+<body>
+<p>
+    A new comment was posted on the post &quot;<span th:text="${title}">Post title</span>&quot;.
+</p>
+<p>
+    You can read it here: <a th:href="${link}" th:text="${link}">https://example.com/blog/posts/slug#comment_1</a>
+</p>
+</body>
+</html>

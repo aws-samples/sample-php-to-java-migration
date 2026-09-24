@@ -1,0 +1,129 @@
+# Symfony Demo (Java/Spring Boot migration) - application configuration.
+#
+# Mirrors the PHP `.env` + config/packages/*.yaml settings. Values are externalized
+# via environment variables with ${ENV_VAR:default} so deployment matches the PHP env
+# approach (Requirements 14.1, 14.2, 15.1, 15.2). App-specific parameters
+# (default locale, enabled locales, notification sender) bind to DemoProperties.
+
+spring:
+  application:
+    name: symfony-demo
+
+  # --- Datasource: SQLite (parity with the demo's sqlite:///data/database.sqlite) ---
+  # PHP: DATABASE_URL="sqlite:///%kernel.project_dir%/data/database.sqlite"
+  datasource:
+    url: jdbc:sqlite:${DATABASE_PATH:data/database.sqlite}
+    driver-class-name: org.sqlite.JDBC
+    # The xerial SQLite driver defaults to date_class=INTEGER, which binds LocalDateTime
+    # parameters as epoch-millis integers. The schema + seed (and the PHP/Doctrine baseline)
+    # store datetimes as TEXT "yyyy-MM-dd HH:mm:ss". In SQLite, TEXT always sorts greater than
+    # any INTEGER, so a `published_at <= :now` filter with an INTEGER bind matches zero rows.
+    # Binding datetimes as TEXT in the same format keeps comparisons lexicographic and correct,
+    # and matches how Doctrine persists datetimes in the source app.
+    hikari:
+      data-source-properties:
+        date_class: text
+        date_string_format: "yyyy-MM-dd HH:mm:ss"
+
+  # --- JPA / Hibernate ---
+  # Schema is owned by Flyway (Requirement 1.4), so Hibernate never touches DDL.
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    # Open Session In View: keep the persistence context open through view rendering so lazy
+    # associations (Post.tags, Post.comments, Comment.author, ...) resolve inside Thymeleaf,
+    # exactly as the Symfony/Doctrine source resolves lazy relations while rendering Twig
+    # templates. This mirrors the source app's request lifecycle; without it, template access
+    # to any lazy collection throws LazyInitializationException.
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.community.dialect.SQLiteDialect
+        format_sql: true
+    show-sql: false
+
+  # --- Flyway: manages the unchanged symfony_demo_* schema + seed (tasks 4.3) ---
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  # --- Thymeleaf (Twig -> Thymeleaf). Cache disabled for dev parity. ---
+  thymeleaf:
+    cache: ${THYMELEAF_CACHE:false}
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+
+  # --- Mail (Symfony Mailer -> Spring Mail). PHP MAILER_DSN=null://null in dev. ---
+  mail:
+    host: ${MAILER_HOST:localhost}
+    port: ${MAILER_PORT:1025}
+    username: ${MAILER_USERNAME:}
+    password: ${MAILER_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAILER_SMTP_AUTH:false}
+          starttls:
+            enable: ${MAILER_SMTP_STARTTLS:false}
+
+  # --- i18n MessageSource (translations/ -> classpath:i18n/messages_*.properties) ---
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+
+  # Web / MVC
+  web:
+    locale: ${APP_LOCALE:en}
+    resources:
+      static-locations: classpath:/static/
+
+server:
+  port: ${SERVER_PORT:8080}
+
+# --- App-specific parameters (mirror Symfony services.yaml parameters) ---
+# PHP: app.locale='en', app.notifications.email_sender=anonymous@example.com,
+#      framework.enabled_locales=[...]
+app:
+  locale: ${APP_LOCALE:en}
+  default-uri: ${DEFAULT_URI:http://localhost}
+  notifications:
+    email-sender: ${MAILER_FROM:anonymous@example.com}
+  enabled-locales:
+    - ar
+    - bg
+    - bn
+    - bs
+    - ca
+    - cs
+    - de
+    - en
+    - es
+    - eu
+    - fr
+    - hr
+    - id
+    - it
+    - ja
+    - lt
+    - ne
+    - nl
+    - pl
+    - pt_BR
+    - ro
+    - ru
+    - sl
+    - sq
+    - sr_Cyrl
+    - sr_Latn
+    - tr
+    - uk
+    - vi
+    - zh_CN
+
+logging:
+  level:
+    org.flywaydb: INFO

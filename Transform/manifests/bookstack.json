@@ -1,0 +1,1782 @@
+{
+    "app": "bookstack",
+    "root": "apps/bookstack",
+    "generatedBy": "discover-models.php",
+    "summary": {
+        "filesScanned": 1603,
+        "classesDiscovered": 462,
+        "eloquentModelsFound": 37,
+        "doctrineEntitiesFound": 0,
+        "doctrineXmlEntitiesFound": 0,
+        "flaggedForReview": 55
+    },
+    "models": [
+        {
+            "class": "BookStack\\Settings\\Setting",
+            "file": "apps/bookstack/app/Settings/Setting.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "setting_key",
+            "fillable": [
+                "setting_key",
+                "value"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\App\\Model",
+            "file": "apps/bookstack/app/App/Model.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [],
+            "accessorsAndMutators": [
+                {
+                    "method": "getRawAttribute",
+                    "attribute": "raw",
+                    "kind": "accessor",
+                    "style": "legacy",
+                    "lineStart": 15,
+                    "lineEnd": 18
+                }
+            ],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "getRawAttribute() contains custom logic (lines 15-18) \u2014 read the method body and re-implement the equivalent transform in Java; do not assume it's a plain field mapping"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Access\\Mfa\\MfaValue",
+            "file": "apps/bookstack/app/Access/Mfa/MfaValue.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Access\\SocialAccount",
+            "file": "apps/bookstack/app/Access/SocialAccount.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "user_id",
+                "driver",
+                "driver_id"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "user",
+                    "type": "belongsTo",
+                    "related": "User",
+                    "lineStart": 24,
+                    "lineEnd": 27
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\References\\Reference",
+            "file": "apps/bookstack/app/References/Reference.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [
+                {
+                    "method": "from",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 20,
+                    "lineEnd": 23
+                },
+                {
+                    "method": "to",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 25,
+                    "lineEnd": 28
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 30,
+                    "lineEnd": 34
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "from(): could not resolve related class for morphTo() (lines 20-23) \u2014 inspect manually",
+                "to(): could not resolve related class for morphTo() (lines 25-28) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\Watch",
+            "file": "apps/bookstack/app/Activity/Models/Watch.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "watchable",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 28,
+                    "lineEnd": 31
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 33,
+                    "lineEnd": 37
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "watchable(): could not resolve related class for morphTo() (lines 28-31) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\Tag",
+            "file": "apps/bookstack/app/Activity/Models/Tag.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "value",
+                "order"
+            ],
+            "guarded": [],
+            "hidden": [
+                "id",
+                "entity_id",
+                "entity_type",
+                "created_at",
+                "updated_at"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "entity",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 29,
+                    "lineEnd": 32
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 34,
+                    "lineEnd": 38
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "entity(): could not resolve related class for morphTo() (lines 29-32) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\Favourite",
+            "file": "apps/bookstack/app/Activity/Models/Favourite.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "user_id"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "favouritable",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 20,
+                    "lineEnd": 23
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 25,
+                    "lineEnd": 29
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "favouritable(): could not resolve related class for morphTo() (lines 20-23) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\WebhookTrackedEvent",
+            "file": "apps/bookstack/app/Activity/Models/WebhookTrackedEvent.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "event"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\Webhook",
+            "file": "apps/bookstack/app/Activity/Models/Webhook.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "endpoint",
+                "timeout"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "last_called_at",
+                    "phpCast": "datetime",
+                    "javaType": "LocalDateTime"
+                },
+                {
+                    "field": "last_errored_at",
+                    "phpCast": "datetime",
+                    "javaType": "LocalDateTime"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "trackedEvents",
+                    "type": "hasMany",
+                    "related": "WebhookTrackedEvent",
+                    "lineStart": 37,
+                    "lineEnd": 40
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\View",
+            "file": "apps/bookstack/app/Activity/Models/View.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "user_id",
+                "views"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [
+                {
+                    "method": "viewable",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 27,
+                    "lineEnd": 30
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 32,
+                    "lineEnd": 36
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "viewable(): could not resolve related class for morphTo() (lines 27-30) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\Activity",
+            "file": "apps/bookstack/app/Activity/Models/Activity.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "loggable",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 36,
+                    "lineEnd": 39
+                },
+                {
+                    "method": "user",
+                    "type": "belongsTo",
+                    "related": "User",
+                    "lineStart": 44,
+                    "lineEnd": 47
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 49,
+                    "lineEnd": 53
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "loggable(): could not resolve related class for morphTo() (lines 36-39) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\Comment",
+            "file": "apps/bookstack/app/Activity/Models/Comment.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "parent_id"
+            ],
+            "guarded": [],
+            "hidden": [
+                "html"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "archived",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "entity",
+                    "type": "morphTo",
+                    "related": "null",
+                    "lineStart": 44,
+                    "lineEnd": 59
+                },
+                {
+                    "method": "parent",
+                    "type": "belongsTo",
+                    "related": "Comment",
+                    "lineStart": 65,
+                    "lineEnd": 70
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Activity\\Models\\MentionHistory",
+            "file": "apps/bookstack/app/Activity/Models/MentionHistory.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": "mention_history",
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Uploads\\Attachment",
+            "file": "apps/bookstack/app/Uploads/Attachment.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "order"
+            ],
+            "guarded": [],
+            "hidden": [
+                "path",
+                "page"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "external",
+                    "phpCast": "bool",
+                    "javaType": "Boolean"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [
+                "HasCreatorAndUpdater",
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "page",
+                    "type": "belongsTo",
+                    "related": "Page",
+                    "lineStart": 58,
+                    "lineEnd": 61
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 63,
+                    "lineEnd": 67
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [
+                {
+                    "method": "scopeVisible",
+                    "lineStart": 115,
+                    "lineEnd": 124
+                }
+            ],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "scopeVisible() is query-building logic (lines 115-124) \u2014 has no declarative JPA equivalent, port manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Uploads\\Image",
+            "file": "apps/bookstack/app/Uploads/Image.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "name"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 33,
+                    "lineEnd": 37
+                },
+                {
+                    "method": "getPage",
+                    "type": "belongsTo",
+                    "related": "Page",
+                    "lineStart": 65,
+                    "lineEnd": 68
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [
+                {
+                    "method": "scopeVisible",
+                    "lineStart": 43,
+                    "lineEnd": 48
+                }
+            ],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "scopeVisible() is query-building logic (lines 43-48) \u2014 has no declarative JPA equivalent, port manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Permissions\\Models\\EntityPermission",
+            "file": "apps/bookstack/app/Permissions/Models/EntityPermission.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "role_id",
+                "view",
+                "create",
+                "update",
+                "delete"
+            ],
+            "guarded": [],
+            "hidden": [
+                "entity_id",
+                "entity_type",
+                "id"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "view",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                },
+                {
+                    "field": "create",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                },
+                {
+                    "field": "read",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                },
+                {
+                    "field": "update",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                },
+                {
+                    "field": "delete",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [
+                {
+                    "method": "role",
+                    "type": "belongsTo",
+                    "related": "Role",
+                    "lineStart": 35,
+                    "lineEnd": 38
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Permissions\\Models\\JointPermission",
+            "file": "apps/bookstack/app/Permissions/Models/JointPermission.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "null",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [
+                {
+                    "method": "role",
+                    "type": "belongsTo",
+                    "related": "Role",
+                    "lineStart": 19,
+                    "lineEnd": 22
+                },
+                {
+                    "method": "entity",
+                    "type": "morphOne",
+                    "related": "Entity",
+                    "lineStart": 27,
+                    "lineEnd": 30
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Permissions\\Models\\RolePermission",
+            "file": "apps/bookstack/app/Permissions/Models/RolePermission.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [
+                {
+                    "method": "roles",
+                    "type": "belongsToMany",
+                    "related": "Role",
+                    "lineStart": 18,
+                    "lineEnd": 21
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Search\\SearchTerm",
+            "file": "apps/bookstack/app/Search/SearchTerm.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "term",
+                "entity_id",
+                "entity_type",
+                "score"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [
+                {
+                    "method": "entity",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 17,
+                    "lineEnd": 20
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "entity(): could not resolve related class for morphTo() (lines 17-20) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Exports\\Import",
+            "file": "apps/bookstack/app/Exports/Import.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [
+                "metadata"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Users\\Models\\User",
+            "file": "apps/bookstack/app/Users/Models/User.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": "users",
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "email"
+            ],
+            "guarded": [],
+            "hidden": [
+                "password",
+                "remember_token",
+                "system_name",
+                "email_confirmed",
+                "external_auth_id",
+                "email",
+                "created_at",
+                "updated_at",
+                "image_id",
+                "roles",
+                "avatar",
+                "user_id",
+                "pivot"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "last_activity_at",
+                    "phpCast": "datetime",
+                    "javaType": "LocalDateTime"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory",
+                "Authenticatable",
+                "CanResetPassword",
+                "Notifiable"
+            ],
+            "relationships": [
+                {
+                    "method": "roles",
+                    "type": "belongsToMany",
+                    "related": "Role",
+                    "lineStart": 121,
+                    "lineEnd": 124
+                },
+                {
+                    "method": "socialAccounts",
+                    "type": "hasMany",
+                    "related": "SocialAccount",
+                    "lineStart": 201,
+                    "lineEnd": 204
+                },
+                {
+                    "method": "avatar",
+                    "type": "belongsTo",
+                    "related": "Image",
+                    "lineStart": 247,
+                    "lineEnd": 250
+                },
+                {
+                    "method": "apiTokens",
+                    "type": "hasMany",
+                    "related": "ApiToken",
+                    "lineStart": 255,
+                    "lineEnd": 258
+                },
+                {
+                    "method": "favourites",
+                    "type": "hasMany",
+                    "related": "Favourite",
+                    "lineStart": 263,
+                    "lineEnd": 266
+                },
+                {
+                    "method": "mfaValues",
+                    "type": "hasMany",
+                    "related": "MfaValue",
+                    "lineStart": 271,
+                    "lineEnd": 274
+                },
+                {
+                    "method": "watches",
+                    "type": "hasMany",
+                    "related": "Watch",
+                    "lineStart": 279,
+                    "lineEnd": 282
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [
+                {
+                    "method": "scopeWithLastActivityAt",
+                    "lineStart": 287,
+                    "lineEnd": 295
+                }
+            ],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "scopeWithLastActivityAt() is query-building logic (lines 287-295) \u2014 has no declarative JPA equivalent, port manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Users\\Models\\Role",
+            "file": "apps/bookstack/app/Users/Models/Role.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "display_name",
+                "description",
+                "external_auth_id",
+                "mfa_enforced"
+            ],
+            "guarded": [],
+            "hidden": [
+                "pivot"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "mfa_enforced",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "users",
+                    "type": "belongsToMany",
+                    "related": "User",
+                    "lineStart": 41,
+                    "lineEnd": 44
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 49,
+                    "lineEnd": 52
+                },
+                {
+                    "method": "permissions",
+                    "type": "belongsToMany",
+                    "related": "RolePermission",
+                    "lineStart": 58,
+                    "lineEnd": 62
+                },
+                {
+                    "method": "entityPermissions",
+                    "type": "hasMany",
+                    "related": "EntityPermission",
+                    "lineStart": 67,
+                    "lineEnd": 70
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Sorting\\SortRule",
+            "file": "apps/bookstack/app/Sorting/SortRule.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Api\\ApiToken",
+            "file": "apps/bookstack/app/Api/ApiToken.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "expires_at"
+            ],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "expires_at",
+                    "phpCast": "date:Y-m-d",
+                    "javaType": "LocalDate"
+                }
+            ],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "user",
+                    "type": "belongsTo",
+                    "related": "User",
+                    "lineStart": 34,
+                    "lineEnd": 37
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\Book",
+            "file": "apps/bookstack/app/Entities/Models/Book.php",
+            "parent": "BookStack\\Entities\\Models\\Entity",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [
+                "name"
+            ],
+            "guarded": [],
+            "hidden": [
+                "pivot",
+                "deleted_at",
+                "description_html",
+                "entity_id",
+                "entity_type",
+                "chapter_id",
+                "book_id",
+                "priority"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": true,
+            "traits": [
+                "HasFactory",
+                "ContainerTrait",
+                "SoftDeletes",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "pages",
+                    "type": "hasMany",
+                    "related": "Page",
+                    "lineStart": 51,
+                    "lineEnd": 54
+                },
+                {
+                    "method": "chapters",
+                    "type": "hasMany",
+                    "related": "Chapter",
+                    "lineStart": 68,
+                    "lineEnd": 71
+                },
+                {
+                    "method": "shelves",
+                    "type": "belongsToMany",
+                    "related": "Bookshelf",
+                    "lineStart": 76,
+                    "lineEnd": 79
+                },
+                {
+                    "method": "cover",
+                    "type": "belongsTo",
+                    "related": "Image",
+                    "lineStart": 97,
+                    "lineEnd": 100
+                },
+                {
+                    "method": "sortRule",
+                    "type": "belongsTo",
+                    "related": "SortRule",
+                    "lineStart": 110,
+                    "lineEnd": 113
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\Chapter",
+            "file": "apps/bookstack/app/Entities/Models/Chapter.php",
+            "parent": "BookStack\\Entities\\Models\\BookChild",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "priority"
+            ],
+            "guarded": [],
+            "hidden": [
+                "pivot",
+                "deleted_at",
+                "description_html",
+                "sort_rule_id",
+                "image_id",
+                "entity_id",
+                "entity_type",
+                "chapter_id"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": true,
+            "traits": [
+                "HasFactory",
+                "ContainerTrait",
+                "SoftDeletes",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "pages",
+                    "type": "hasMany",
+                    "related": "Page",
+                    "lineStart": 30,
+                    "lineEnd": 33
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\SlugHistory",
+            "file": "apps/bookstack/app/Entities/Models/SlugHistory.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": "slug_history",
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 23,
+                    "lineEnd": 27
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\EntityPageData",
+            "file": "apps/bookstack/app/Entities/Models/EntityPageData.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "page_id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\EntityContainerData",
+            "file": "apps/bookstack/app/Entities/Models/EntityContainerData.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "entity_id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [],
+            "relationships": [],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\PageRevision",
+            "file": "apps/bookstack/app/Entities/Models/PageRevision.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "text",
+                "summary"
+            ],
+            "guarded": [],
+            "hidden": [
+                "html",
+                "markdown",
+                "text"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "createdBy",
+                    "type": "belongsTo",
+                    "related": "User",
+                    "lineStart": 42,
+                    "lineEnd": 45
+                },
+                {
+                    "method": "page",
+                    "type": "belongsTo",
+                    "related": "Page",
+                    "lineStart": 50,
+                    "lineEnd": 53
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\EntityTable",
+            "file": "apps/bookstack/app/Entities/Models/EntityTable.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": true,
+            "traits": [
+                "SoftDeletes"
+            ],
+            "relationships": [
+                {
+                    "method": "jointPermissions",
+                    "type": "hasMany",
+                    "related": "JointPermission",
+                    "lineStart": 37,
+                    "lineEnd": 41
+                },
+                {
+                    "method": "tags",
+                    "type": "hasMany",
+                    "related": "Tag",
+                    "lineStart": 46,
+                    "lineEnd": 50
+                },
+                {
+                    "method": "permissions",
+                    "type": "hasMany",
+                    "related": "EntityPermission",
+                    "lineStart": 55,
+                    "lineEnd": 59
+                },
+                {
+                    "method": "views",
+                    "type": "hasMany",
+                    "related": "View",
+                    "lineStart": 64,
+                    "lineEnd": 68
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [
+                {
+                    "method": "scopeVisible",
+                    "lineStart": 29,
+                    "lineEnd": 32
+                }
+            ],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "scopeVisible() is query-building logic (lines 29-32) \u2014 has no declarative JPA equivalent, port manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\Page",
+            "file": "apps/bookstack/app/Entities/Models/Page.php",
+            "parent": "BookStack\\Entities\\Models\\BookChild",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [
+                "name",
+                "priority"
+            ],
+            "guarded": [],
+            "hidden": [
+                "html",
+                "markdown",
+                "text",
+                "pivot",
+                "deleted_at",
+                "entity_id",
+                "entity_type"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [
+                {
+                    "field": "draft",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                },
+                {
+                    "field": "template",
+                    "phpCast": "boolean",
+                    "javaType": "Boolean"
+                }
+            ],
+            "softDeletes": true,
+            "traits": [
+                "HasFactory",
+                "SoftDeletes",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "chapter",
+                    "type": "belongsTo",
+                    "related": "Chapter",
+                    "lineStart": 58,
+                    "lineEnd": 61
+                },
+                {
+                    "method": "currentRevision",
+                    "type": "hasOne",
+                    "related": "PageRevision",
+                    "lineStart": 86,
+                    "lineEnd": 92
+                },
+                {
+                    "method": "allRevisions",
+                    "type": "hasMany",
+                    "related": "PageRevision",
+                    "lineStart": 98,
+                    "lineEnd": 101
+                },
+                {
+                    "method": "attachments",
+                    "type": "hasMany",
+                    "related": "Attachment",
+                    "lineStart": 106,
+                    "lineEnd": 109
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [
+                {
+                    "method": "scopeVisible",
+                    "lineStart": 48,
+                    "lineEnd": 53
+                }
+            ],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "scopeVisible() is query-building logic (lines 48-53) \u2014 has no declarative JPA equivalent, port manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\BookChild",
+            "file": "apps/bookstack/app/Entities/Models/BookChild.php",
+            "parent": "BookStack\\Entities\\Models\\Entity",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": true,
+            "traits": [
+                "SoftDeletes",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "book",
+                    "type": "belongsTo",
+                    "related": "Book",
+                    "lineStart": 21,
+                    "lineEnd": 24
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\Deletion",
+            "file": "apps/bookstack/app/Entities/Models/Deletion.php",
+            "parent": null,
+            "confidence": "medium",
+            "table": null,
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": false,
+            "traits": [
+                "HasFactory"
+            ],
+            "relationships": [
+                {
+                    "method": "deletable",
+                    "type": "morphTo",
+                    "related": null,
+                    "lineStart": 28,
+                    "lineEnd": 31
+                },
+                {
+                    "method": "deleter",
+                    "type": "belongsTo",
+                    "related": "User",
+                    "lineStart": 36,
+                    "lineEnd": 39
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "deletable(): could not resolve related class for morphTo() (lines 28-31) \u2014 inspect manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\Entity",
+            "file": "apps/bookstack/app/Entities/Models/Entity.php",
+            "parent": "BookStack\\App\\Model",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [],
+            "guarded": [],
+            "hidden": [],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": true,
+            "traits": [
+                "SoftDeletes",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "activity",
+                    "type": "morphMany",
+                    "related": "Activity",
+                    "lineStart": 214,
+                    "lineEnd": 218
+                },
+                {
+                    "method": "views",
+                    "type": "morphMany",
+                    "related": "View",
+                    "lineStart": 223,
+                    "lineEnd": 226
+                },
+                {
+                    "method": "tags",
+                    "type": "morphMany",
+                    "related": "Tag",
+                    "lineStart": 231,
+                    "lineEnd": 235
+                },
+                {
+                    "method": "comments",
+                    "type": "morphMany",
+                    "related": "Comment",
+                    "lineStart": 241,
+                    "lineEnd": 246
+                },
+                {
+                    "method": "searchTerms",
+                    "type": "morphMany",
+                    "related": "SearchTerm",
+                    "lineStart": 251,
+                    "lineEnd": 254
+                },
+                {
+                    "method": "permissions",
+                    "type": "morphMany",
+                    "related": "EntityPermission",
+                    "lineStart": 259,
+                    "lineEnd": 262
+                },
+                {
+                    "method": "jointPermissions",
+                    "type": "morphMany",
+                    "related": "JointPermission",
+                    "lineStart": 275,
+                    "lineEnd": 278
+                },
+                {
+                    "method": "ownedBy",
+                    "type": "belongsTo",
+                    "related": "User",
+                    "lineStart": 284,
+                    "lineEnd": 287
+                },
+                {
+                    "method": "deletions",
+                    "type": "morphMany",
+                    "related": "Deletion",
+                    "lineStart": 297,
+                    "lineEnd": 300
+                },
+                {
+                    "method": "referencesFrom",
+                    "type": "morphMany",
+                    "related": "Reference",
+                    "lineStart": 305,
+                    "lineEnd": 308
+                },
+                {
+                    "method": "referencesTo",
+                    "type": "morphMany",
+                    "related": "Reference",
+                    "lineStart": 313,
+                    "lineEnd": 316
+                },
+                {
+                    "method": "favourites",
+                    "type": "morphMany",
+                    "related": "Favourite",
+                    "lineStart": 410,
+                    "lineEnd": 413
+                },
+                {
+                    "method": "watches",
+                    "type": "morphMany",
+                    "related": "Watch",
+                    "lineStart": 428,
+                    "lineEnd": 431
+                },
+                {
+                    "method": "slugHistory",
+                    "type": "morphMany",
+                    "related": "SlugHistory",
+                    "lineStart": 436,
+                    "lineEnd": 439
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [
+                {
+                    "method": "scopeVisible",
+                    "lineStart": 150,
+                    "lineEnd": 153
+                },
+                {
+                    "method": "scopeWithLastView",
+                    "lineStart": 158,
+                    "lineEnd": 167
+                },
+                {
+                    "method": "scopeWithViewCount",
+                    "lineStart": 172,
+                    "lineEnd": 180
+                }
+            ],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model",
+                "scopeVisible() is query-building logic (lines 150-153) \u2014 has no declarative JPA equivalent, port manually",
+                "scopeWithLastView() is query-building logic (lines 158-167) \u2014 has no declarative JPA equivalent, port manually",
+                "scopeWithViewCount() is query-building logic (lines 172-180) \u2014 has no declarative JPA equivalent, port manually"
+            ],
+            "framework": "eloquent"
+        },
+        {
+            "class": "BookStack\\Entities\\Models\\Bookshelf",
+            "file": "apps/bookstack/app/Entities/Models/Bookshelf.php",
+            "parent": "BookStack\\Entities\\Models\\Entity",
+            "confidence": "medium",
+            "table": "entities",
+            "primaryKey": "id",
+            "fillable": [
+                "name"
+            ],
+            "guarded": [],
+            "hidden": [
+                "pivot",
+                "image_id",
+                "deleted_at",
+                "description_html",
+                "priority",
+                "default_template_id",
+                "sort_rule_id",
+                "entity_id",
+                "entity_type",
+                "chapter_id",
+                "book_id"
+            ],
+            "visible": [],
+            "appends": [],
+            "casts": [],
+            "softDeletes": true,
+            "traits": [
+                "HasFactory",
+                "ContainerTrait",
+                "SoftDeletes",
+                "HasCreatorAndUpdater"
+            ],
+            "relationships": [
+                {
+                    "method": "books",
+                    "type": "belongsToMany",
+                    "related": "Book",
+                    "lineStart": 29,
+                    "lineEnd": 35
+                },
+                {
+                    "method": "cover",
+                    "type": "belongsTo",
+                    "related": "Image",
+                    "lineStart": 79,
+                    "lineEnd": 82
+                }
+            ],
+            "accessorsAndMutators": [],
+            "scopes": [],
+            "flags": [
+                "base-class resolution confidence: medium \u2014 confirm this class is really a model"
+            ],
+            "framework": "eloquent"
+        }
+    ],
+    "unresolvedBaseClasses": []
+}
